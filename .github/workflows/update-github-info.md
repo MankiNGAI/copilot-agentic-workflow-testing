@@ -12,15 +12,17 @@ engine:
 tools:
   github:
     toolsets: [repos]
-  bash:
-    - "curl https://github.blog/latest/"
-    - "curl https://github.blog/changelog/"
-    - "curl https://awesome-copilot.github.com/workflows/"
-    - "wget -qO- https://github.blog/latest/"
-    - "wget -qO- https://github.blog/changelog/"
-    - "wget -qO- https://awesome-copilot.github.com/workflows/"
   edit:
   web-fetch:
+pre-agent-steps:
+  - name: Prepare source snapshots
+    run: mkdir -p /tmp/gh-aw/source-snapshots
+  - name: Fetch GitHub Blog snapshot
+    run: curl --fail --silent --show-error --location https://github.blog/latest/ --output /tmp/gh-aw/source-snapshots/github-blog-latest.html
+  - name: Fetch GitHub Changelog snapshot
+    run: curl --fail --silent --show-error --location https://github.blog/changelog/ --output /tmp/gh-aw/source-snapshots/github-changelog.html
+  - name: Fetch Awesome Copilot workflows snapshot
+    run: curl --fail --silent --show-error --location https://awesome-copilot.github.com/workflows/ --output /tmp/gh-aw/source-snapshots/awesome-copilot-workflows.html
 network:
   allowed:
     - github.blog
@@ -46,12 +48,10 @@ Use these sources:
 - Awesome Copilot workflows: https://awesome-copilot.github.com/workflows/
 
 1. Use the GitHub repository API tools to read `notes/mona-notes.md` and `site/content/github-info.md`. Do not use terminal, CLI, or sandboxed shell commands to read repository guidance or reference files.
-2. Fetch https://github.blog/latest/ using the `curl` tool with this exact command: `curl https://github.blog/latest/`.
-3. Fetch https://github.blog/changelog/ using the `curl` tool with this exact command: `curl https://github.blog/changelog/`.
-4. Fetch https://awesome-copilot.github.com/workflows/ using the `curl` tool with this exact command: `curl https://awesome-copilot.github.com/workflows/`.
-5. If a `curl` request is denied or unavailable, use the permitted `wget` tool with the matching exact URL. The `web_fetch` tool is also enabled and may be used for these same URLs.
-6. Do not claim that web access is denied unless `web_fetch`, the exact permitted `curl` commands, and the matching `wget` fallbacks have been attempted and all three sources failed.
-7. Use the notes to guide the editorial style. Prefer short, practical developer-focused summaries and include the source for each Blog, Changelog, or Awesome Copilot update.
+2. Read the fetched local snapshots from `/tmp/gh-aw/source-snapshots/`: `github-blog-latest.html`, `github-changelog.html`, and `awesome-copilot-workflows.html`. These files were fetched by deterministic pre-agent Actions steps outside the agent firewall.
+3. Use the `web_fetch` tool only when a local snapshot is missing and the tool is available. Do not use `curl` or `wget` from the agent for source retrieval.
+4. Do not claim that web access is denied before checking all three local snapshot files and attempting `web_fetch` for any missing file.
+5. Use the notes to guide the editorial style. Prefer short, practical developer-focused summaries and include the source for each Blog, Changelog, or Awesome Copilot update.
 
 ## Update and review
 
