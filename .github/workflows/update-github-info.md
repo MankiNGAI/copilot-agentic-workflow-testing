@@ -13,8 +13,9 @@ tools:
   github:
     toolsets: [repos]
   bash:
-    - "curl https://github.blog/*"
-    - "curl https://awesome-copilot.github.com/*"
+    - "curl https://github.blog/latest/"
+    - "curl https://github.blog/changelog/"
+    - "curl https://awesome-copilot.github.com/workflows/"
   edit:
   web-fetch:
 network:
@@ -35,10 +36,10 @@ Refresh the website's GitHub information and propose the changes in a pull reque
 ## Sources and repository context
 
 1. Use the GitHub repository API tools to read `notes/mona-notes.md` and `site/content/github-info.md`. Do not use terminal, CLI, or sandboxed shell commands to read repository guidance or reference files.
-2. Use the `web_fetch` tool (the web-fetch frontmatter tool) to fetch https://github.blog/latest/.
-3. Use the `web_fetch` tool to fetch https://github.blog/changelog/.
-4. Use the `web_fetch` tool to fetch https://awesome-copilot.github.com/workflows/.
-5. If `web_fetch` is unavailable, use the permitted `curl` tool only for those exact three allowlisted URLs. Do not report that web access is unavailable before trying both `web_fetch` and the permitted fallback commands.
+2. Fetch https://github.blog/latest/ using the `curl` tool with this exact command: `curl https://github.blog/latest/`.
+3. Fetch https://github.blog/changelog/ using the `curl` tool with this exact command: `curl https://github.blog/changelog/`.
+4. Fetch https://awesome-copilot.github.com/workflows/ using the `curl` tool with this exact command: `curl https://awesome-copilot.github.com/workflows/`.
+5. The `web_fetch` tool is also enabled and may be used for these same URLs. Do not claim that web access is denied unless both the exact permitted `curl` commands and `web_fetch` have been attempted and all three sources failed.
 6. Use the notes to guide the editorial style. Prefer short, practical developer-focused summaries and include the source for each Blog, Changelog, or Awesome Copilot update.
 
 ## Update and review
