@@ -16,6 +16,7 @@ network:
   allowed:
     - github.blog
     - github.com
+    - awesome-copilot.github.com
 safe-outputs:
   create-pull-request:
     max: 1
@@ -31,7 +32,8 @@ Refresh the website's GitHub information and propose the changes in a pull reque
 1. Use the GitHub repository API tools to read `notes/mona-notes.md` and `site/content/github-info.md`. Do not use terminal, CLI, or sandboxed shell commands to read repository guidance or reference files.
 2. Use the web-fetch tool to fetch https://github.blog/latest/.
 3. Use the web-fetch tool to fetch https://github.blog/changelog/.
-4. Use the notes to guide the editorial style. Prefer short, practical developer-focused summaries and include the source for each blog or changelog update.
+4. Use the web-fetch tool to fetch https://awesome-copilot.github.com/workflows/.
+5. Use the notes to guide the editorial style. Prefer short, practical developer-focused summaries and include the source for each Blog, Changelog, or Awesome Copilot update.
 
 ## Update and review
 
