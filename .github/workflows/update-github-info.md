@@ -22,12 +22,13 @@ pre-agent-steps:
   - name: Fetch GitHub Changelog snapshot
     run: curl --fail --silent --show-error --location https://github.blog/changelog/ --output /tmp/gh-aw/source-snapshots/github-changelog.html
   - name: Fetch Awesome Copilot workflows snapshot
-    run: curl --fail --silent --show-error --location https://awesome-copilot.github.com/workflows/ --output /tmp/gh-aw/source-snapshots/awesome-copilot-workflows.html
+    run: curl --fail --silent --show-error --location https://raw.githubusercontent.com/github/awesome-copilot/main/docs/README.workflows.md --output /tmp/gh-aw/source-snapshots/awesome-copilot-workflows.md
 network:
   allowed:
     - github.blog
     - github.com
     - awesome-copilot.github.com
+    - raw.githubusercontent.com
 safe-outputs:
   create-pull-request:
     max: 1
@@ -48,7 +49,7 @@ Use these sources:
 - Awesome Copilot workflows: https://awesome-copilot.github.com/workflows/
 
 1. Use the GitHub repository API tools to read `notes/mona-notes.md` and `site/content/github-info.md`. Do not use terminal, CLI, or sandboxed shell commands to read repository guidance or reference files.
-2. Read the fetched local snapshots from `/tmp/gh-aw/source-snapshots/`: `github-blog-latest.html`, `github-changelog.html`, and `awesome-copilot-workflows.html`. These files were fetched by deterministic pre-agent Actions steps outside the agent firewall.
+2. Read the fetched local snapshots from `/tmp/gh-aw/source-snapshots/`: `github-blog-latest.html`, `github-changelog.html`, and `awesome-copilot-workflows.md`. These files were fetched by deterministic pre-agent Actions steps outside the agent firewall. The Awesome Copilot landing page currently redirects to a missing path, so its repository-backed workflow catalog is used as the current mirror for that source.
 3. Use the `web_fetch` tool only when a local snapshot is missing and the tool is available. Do not use `curl` or `wget` from the agent for source retrieval.
 4. Do not claim that web access is denied before checking all three local snapshot files and attempting `web_fetch` for any missing file.
 5. Use the notes to guide the editorial style. Prefer short, practical developer-focused summaries and include the source for each Blog, Changelog, or Awesome Copilot update.
