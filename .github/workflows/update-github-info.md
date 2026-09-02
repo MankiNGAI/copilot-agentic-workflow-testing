@@ -12,6 +12,9 @@ engine:
 tools:
   github:
     toolsets: [repos]
+  bash:
+    - "curl https://github.blog/*"
+    - "curl https://awesome-copilot.github.com/*"
   edit:
   web-fetch:
 network:
@@ -32,10 +35,11 @@ Refresh the website's GitHub information and propose the changes in a pull reque
 ## Sources and repository context
 
 1. Use the GitHub repository API tools to read `notes/mona-notes.md` and `site/content/github-info.md`. Do not use terminal, CLI, or sandboxed shell commands to read repository guidance or reference files.
-2. Use the web-fetch tool to fetch https://github.blog/latest/.
-3. Use the web-fetch tool to fetch https://github.blog/changelog/.
-4. Use the web-fetch tool to fetch https://awesome-copilot.github.com/workflows/.
-5. Use the notes to guide the editorial style. Prefer short, practical developer-focused summaries and include the source for each Blog, Changelog, or Awesome Copilot update.
+2. Use the `web_fetch` tool (the web-fetch frontmatter tool) to fetch https://github.blog/latest/.
+3. Use the `web_fetch` tool to fetch https://github.blog/changelog/.
+4. Use the `web_fetch` tool to fetch https://awesome-copilot.github.com/workflows/.
+5. If `web_fetch` is unavailable, use the permitted `curl` tool only for those exact three allowlisted URLs. Do not report that web access is unavailable before trying both `web_fetch` and the permitted fallback commands.
+6. Use the notes to guide the editorial style. Prefer short, practical developer-focused summaries and include the source for each Blog, Changelog, or Awesome Copilot update.
 
 ## Update and review
 
